@@ -1,0 +1,60 @@
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  color: aqua !important;
+}
+
+.blog-modal-title {
+  font-weight: bold !important;
+  text-align: center !important;
+  flex-grow: 1 !important;
+  color: #142d4c !important;
+}
+
+.close-btn {
+  width: fit-content;
+}
+
+.form-field-box {
+  margin-bottom: 1rem !important;
+}
+
+.form-field {
+  width: 100% !important;
+  margin-bottom: 1rem !important;
+}
+
+.change-img-btn {
+  width: fit-content !important;
+  padding: 8px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.img-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.save-btn-box {
+  text-align: center;
+}
+
+.save-btn {
+  margin-top: 1rem;
+  width: fit-content;
+}
+

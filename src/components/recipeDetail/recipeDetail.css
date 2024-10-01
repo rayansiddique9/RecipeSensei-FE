@@ -1,0 +1,121 @@
+.modal-container {
+  padding: 20px;
+  border-radius: 8px;
+  outline: none;
+  width: 80%;
+  margin-top: 5rem !important;
+  max-width: 800px;
+  overflow-y: auto;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+.back-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+}
+
+.back-button {
+  width: fit-content;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #9fd3c7;
+  color: rgb(56, 49, 49);
+  padding: 10px;
+  max-height: 4%;
+  overflow-y: auto;
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.paper-user-recipe {
+  padding: 10px;
+  text-align: center;
+  margin-top: 20px;
+  width: fit-content;
+  background-color: #385170 !important;
+  color: #ececec !important;
+}
+
+.recipe-creator-name {
+  margin-left: 10px !important;
+  font-weight: bold !important;
+}
+
+.modal-image {
+  max-width: 200px;
+  height: auto;
+  max-height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.content-section {
+  flex-grow: 1;
+}
+
+.title-text {
+  max-width: 100% !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .modal-container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .image-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-image {
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .modal-container {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .modal-container {
+    width: 85%;
+  }
+
+  .image-container {
+    flex-direction: row;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .modal-container {
+    width: 70%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .modal-container {
+    width: 60%;
+  }
+}
+

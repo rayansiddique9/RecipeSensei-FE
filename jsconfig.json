@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"],
+      "components": ["./src/components/*"],
+      "assets": ["./src/assets/*"],
+      "utils": ["./src/utils/*"],
+      "common": ["./src/common/*"],
+      "api": ["./src/api/*"],
+      "pages": ["./src/pages/*"],
+      "reduxStore": ["./src/reduxStore/*"],
+      "config": ["./src/config"]
+    }
+  }
+}
+

@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.paper-content {
+  padding: 20px;
+  background-color: white;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+  text-align: left !important;
+  overflow-y: auto;
+}
+
+.content-box {
+  max-width: 100% !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  hyphens: auto !important;
+}
+
+.title {
+  background-color: #9fd3c7;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  border-radius: 8px 8px 8px 8px;
+  width: fit-content;
+}
+

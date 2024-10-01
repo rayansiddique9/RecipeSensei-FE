@@ -1,0 +1,21 @@
+.scrollable-list {
+  height: 400px;
+  overflow-y: auto;
+}
+
+.user-list {
+    min-height: 400px !important;
+    margin-top: 1rem !important;
+}
+
+.user-list-item {
+  margin-bottom: 1rem !important;
+  background-color: #e0e0e0;
+  color: #3a4750;
+  border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
+}
+
+.user-del-btn {
+    color: #3a4750 !important;
+}
+

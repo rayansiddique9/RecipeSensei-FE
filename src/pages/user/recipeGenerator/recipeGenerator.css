@@ -1,0 +1,74 @@
+.ai-recipe-generator {
+  width: 100%;
+  padding: 20px;
+  display: block;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 5rem;
+}
+
+.box-recipe-generation {
+  width: 100% !important;
+}
+
+.ai-recipe-title {
+  width: fit-content;
+  background-color: #385170;
+  text-align: center;
+  padding: 1rem;
+  color: #ececec;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem !important;
+}
+
+.recipe-response {
+  color: turquoise !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.ingredients-prompt {
+  margin-bottom: 1.5rem !important;
+}
+
+.generate-recipe-btn {
+  background-color: #5585b5 !important;
+  color: white !important;
+  width: fit-content !important;
+  padding: 0.7rem 1.3rem !important;
+  border-radius: 0.5rem !important;
+}
+
+.generate-recipe-btn:hover {
+  background-color: lightblue !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .ai-recipe-generator {
+    width: 95%;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .ai-recipe-generator {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .ai-recipe-generator {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .ai-recipe-generator {
+    width: 70%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .ai-recipe-generator {
+    width: 60%;
+  }
+}
+

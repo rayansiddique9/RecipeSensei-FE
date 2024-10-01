@@ -1,0 +1,105 @@
+.personal-info-user {
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 20px;
+  margin-bottom: 2rem;
+}
+
+.user-prof-page {
+  margin-top: 7% !important;
+  padding: 1.5rem 0.5rem !important;
+}
+
+.account-box-icon {
+  margin-right: 0.8rem !important;
+  font-size: 2rem !important;
+}
+
+.personal-info-btns-user {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2%;
+}
+
+.profile-action-btn {
+  width: fit-content;
+}
+
+.personal-info-heading-user {
+  font-size: 2rem !important;
+  font-weight: bold !important;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif !important;
+  margin-bottom: 1rem !important;
+}
+
+.listingGrid {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+}
+
+.recipe-paper {
+  padding: 1rem !important;
+  overflow-y: auto !important;
+  max-height: 528px !important;
+}
+
+.recipe-box {
+  flex: 1;
+  padding: 1rem !important;
+  overflow-y: auto !important;
+  max-height: 528px !important;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-heading {
+  padding: 1rem !important;
+  font-size: 2rem !important;
+  font-weight: bold !important;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif !important;
+}
+
+.progress-loader-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.progress-loader {
+  margin: 20px 0;
+}
+
+@media only screen and (max-width: 1024px) {
+  .listingGrid {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .user-prof-page {
+    padding: 1rem 0.5rem;
+  }
+
+  .personal-info-user {
+    padding: 16px;
+  }
+
+  .recipe-box {
+    padding: 0.5rem !important;
+  }
+
+  .recipe-heading {
+    font-size: 1.5rem !important;
+    padding: 0.5rem !important;
+  }
+}
+

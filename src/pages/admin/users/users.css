@@ -1,0 +1,31 @@
+.main-users-page {
+  width: 100%;
+  overflow-x: hidden;
+  margin-top: 5rem;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.tab {
+  flex: 1;
+  min-width: 120px;
+}
+
+@media only screen and (max-width: 600px) {
+  .main-users-page {
+    padding: 0 16px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .tabs {
+    justify-content: space-around;
+  }
+}
+

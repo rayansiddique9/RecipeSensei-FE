@@ -1,0 +1,111 @@
+.card-container {
+  display: flex !important;
+  align-items: center;
+  padding: 1rem !important;
+  border-radius: 1rem !important;
+  position: static;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+  overflow: hidden;
+  max-width: 100%;
+  margin-bottom: 0.5rem;
+  box-sizing: border-box;
+  box-shadow: 1.5rem !important;
+  background-color: whitesmoke !important;
+}
+
+.recipe-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  width: 100%;
+  overflow: hidden;
+}
+
+.recipe-image {
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 0.5rem !important;
+  object-fit: cover !important;
+  margin-right: 4px !important;
+}
+
+.recipe-container .MuiTypography-root {
+  flex-grow: 1;
+  max-width: calc(100% - 150px);
+  white-space: nowrap;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.posted-recipe-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit-btn {
+  width: fit-content;
+  border-color: blue;
+}
+
+.edit-icon {
+  color: blue;
+}
+
+.edit-btn:hover {
+  background-color: lightblue;
+  color: white;
+  border-color: darkblue;
+}
+
+.delete-btn {
+  width: fit-content;
+  border-color: red !important;
+}
+
+.delete-icon {
+  color: red;
+}
+
+.delete-btn:hover {
+  background-color: rgb(169, 72, 72);
+  border-color: darkred;
+}
+
+.unsave-btn {
+  width: fit-content !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .card-container {
+    padding: 1rem !important;
+  }
+
+  .recipe-image {
+    display: none !important;
+  }
+
+  .recipe-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .recipe-container .MuiTypography-root {
+    max-width: 100%;
+    white-space: nowrap;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+  }
+
+  .posted-recipe-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+

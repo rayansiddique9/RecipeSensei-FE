@@ -1,0 +1,53 @@
+.modal-class {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 500px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.nutritionist-modal-title {
+  font-weight: bold !important;
+  text-align: center !important;
+  flex-grow: 1 !important;
+  color: #142d4c !important;
+}
+
+.close-btn {
+  width: fit-content;
+}
+
+.form-field-box {
+  margin-bottom: 1rem !important;
+}
+
+.form-field {
+  width: 100% !important;
+  margin-bottom: 1rem !important;
+}
+
+.save-btn-box {
+  text-align: center;
+}
+
+.save-btn {
+  margin-top: 1rem;
+  width: fit-content;
+}
+
