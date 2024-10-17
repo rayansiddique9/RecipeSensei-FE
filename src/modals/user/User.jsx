@@ -1,9 +1,9 @@
 import React from "react";
 import { Modal, Box, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import "./detailModal.css";
+import "./user.css";
 
-const DetailModal = ({ open, onClose, userDetails }) => {
+const User = ({ open, onClose, userDetails }) => {
   return (
     <Modal
       open={open}
@@ -63,5 +63,5 @@ const DetailModal = ({ open, onClose, userDetails }) => {
   );
 };
 
-export default DetailModal;
+export default User;
 

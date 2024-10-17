@@ -26,3 +26,15 @@ export const CLAUSES = {
   VALID_QUALIFICATION: `Qualification must be atleast ${GLOBALS.MIN_QUALIFICAITON_LENGTH} characters.`,
 };
 
+export const STATUS = {
+  APPROVED: "APPROVED",
+  REJECTED: "REJECTED",
+  PENDING: "PENDING",
+}
+
+export const BLOG_STATE = {
+  APPROVED: 0,
+  PENDING: 1,
+  REJECTED: 2,
+}
+

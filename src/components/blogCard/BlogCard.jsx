@@ -7,7 +7,7 @@ import { blogApi } from "api";
 import { ConfirmationDialog } from "components";
 import "./blogCard.css";
 
-const BlogCard = ({ blogDetails }) => {
+const BlogCard = ({ blogDetails, refetch }) => {
   const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -15,9 +15,8 @@ const BlogCard = ({ blogDetails }) => {
     event.stopPropagation();
     try {
       await blogApi.deleteBlog(blogDetails.id);
-      setTimeout(() => {
-        window.location.reload();
-      }, 800);
+      setIsDialogOpen(false);
+      refetch();
     } catch (error) {}
   };
 
@@ -32,7 +31,7 @@ const BlogCard = ({ blogDetails }) => {
   };
 
   const handleViewBlog = () => {
-    navigate(`${routes.BLOG_DETAIL}/${blogDetails.id}`, { state: { blogDetails } });
+    navigate(routes.BLOG_DETAIL.replace(":id", blogDetails.id), { state: { blogDetails } });
   };
 
   return (

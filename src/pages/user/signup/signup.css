@@ -22,6 +22,11 @@
   border-radius: 0.5rem;
 }
 
+.professional-details {
+  display: flex;
+  justify-content: space-between;
+}
+
 .form-links {
   display: flex;
   flex-direction: column;
@@ -34,6 +39,9 @@
   color: #53a8b6;
   font-weight: bold;
   margin: 10px 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .form-links span {

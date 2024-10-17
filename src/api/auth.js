@@ -26,11 +26,11 @@ export const authApi = {
   },
   
   verifyUser: async (params) => {
-    return await apiUtils.get(`${endpoints.ACCOUNT_VERIFICATION}/${params.token1}/${params.token2}`, params, false, true);
+    return await apiUtils.get(endpoints.ACCOUNT_VERIFICATION(params.token1, params.token2), params, false, true);
   },
   
   deleteUser: async (username) => {
-    return await apiUtils.delete(`${endpoints.DELETE_USER}/${username}`, {}, true, true);
+    return await apiUtils.delete(endpoints.DELETE_USER(username), {}, true, true);
   },
 };
 

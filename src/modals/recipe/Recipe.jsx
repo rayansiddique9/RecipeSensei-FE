@@ -14,13 +14,13 @@ import { Formik, Form, Field } from "formik";
 import { recipeApi } from "api";
 import { recipeSchema } from "utils";
 import CloseIcon from "@mui/icons-material/Close";
-import "./recipeAddEdit.css";
+import "./recipe.css";
 
-const RecipeAddEdit = ({ open, handleClose, recipe, stopPropagation }) => {
-  const [imagePreview, setImagePreview] = useState(recipe?.image ? recipe.image : null);
+const Recipe = ({ open, handleClose, recipe, stopPropagation, refetchRecipes }) => {
+  const [imagePreview, setImagePreview] = useState(recipe?.image || null);
 
-  const handleImageChange = (e, setFieldValue) => {
-    const file = e.target.files[0];
+  const handleImageChange = (event, setFieldValue) => {
+    const file = event.target.files[0];
     if (file) {
       setImagePreview(URL.createObjectURL(file));
       setFieldValue("image", file);
@@ -43,9 +43,7 @@ const RecipeAddEdit = ({ open, handleClose, recipe, stopPropagation }) => {
       }
       handleClose();
       if (recipe) {
-        setTimeout(() => {
-          window.location.reload();
-        }, 800);
+        refetchRecipes();
       }
     } catch (error) {}
   };
@@ -62,21 +60,11 @@ const RecipeAddEdit = ({ open, handleClose, recipe, stopPropagation }) => {
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
       <Box
         onClick={stopPropagation}
+        className="recipe-modal-box"
         sx={{
           width: { xs: "80%", sm: "80%", md: "60%" },
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          maxWidth: "600px",
           bgcolor: "background.paper",
-          borderRadius: 2,
-          p: 4,
           boxShadow: 24,
-          display: "flex",
-          flexDirection: "column",
-          maxHeight: "90vh",
-          overflowY: "auto",
         }}
       >
         <Box className="modal-header">
@@ -139,7 +127,11 @@ const RecipeAddEdit = ({ open, handleClose, recipe, stopPropagation }) => {
 
                 <Button className="change-img-btn" variant="contained" component="label">
                   {recipe?.image ? "Change Image" : "Upload Image"}
-                  <input type="file" hidden accept="image/*" onChange={(e) => handleImageChange(e, setFieldValue)} />
+                  <input 
+                    type="file" 
+                    hidden accept="image/*" 
+                    onChange={(event) => handleImageChange(event, setFieldValue)}
+                  />
                 </Button>
               </Box>
 
@@ -170,5 +162,5 @@ const RecipeAddEdit = ({ open, handleClose, recipe, stopPropagation }) => {
   );
 };
 
-export default RecipeAddEdit;
+export default Recipe;
 

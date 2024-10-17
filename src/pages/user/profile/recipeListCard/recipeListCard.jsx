@@ -5,13 +5,14 @@ import { Card, CardMedia, Typography, Box, Button, IconButton } from "@mui/mater
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { RecipeAddEdit, ConfirmationDialog } from "components";
+import { ConfirmationDialog } from "components";
 import { recipeApi } from "api";
 import { routes } from "common";
 import { updateSavedRecipes } from "reduxStore";
+import { RecipeModal } from "modals";
 import "./recipeListCard.css";
 
-const RecipeListCard = ({ recipe, username }) => {
+const RecipeListCard = ({ recipe, username, refetch }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,9 +35,8 @@ const RecipeListCard = ({ recipe, username }) => {
     if (event) event.stopPropagation();
     try {
       await recipeApi.deleteRecipe(recipe.id);
-      setTimeout(() => {
-        window.location.reload();
-      }, 800);
+      setIsDialogOpen(false);
+      refetch();
     } catch (error) {}
   };
 
@@ -60,7 +60,7 @@ const RecipeListCard = ({ recipe, username }) => {
 
   const handleViewRecipe = () => {
     const recipeDetails = recipe;
-    navigate(`${routes.RECIPE_DETAIL}/${recipeDetails.id}`, { state: { recipeDetails } });
+    navigate(routes.RECIPE_DETAIL.replace(":id", recipeDetails.id), { state: { recipeDetails } });
   };
 
   return (
@@ -93,18 +93,19 @@ const RecipeListCard = ({ recipe, username }) => {
         )}
       </Box>
       {selectedRecipe && (
-        <RecipeAddEdit
+        <RecipeModal
           open={isModalOpen}
           handleClose={handleCloseModal}
           recipe={selectedRecipe}
           stopPropagation={(e) => e.stopPropagation()}
+          refetchRecipes={refetch}
         />
       )}
 
       {isDialogOpen && (
         <ConfirmationDialog
           open={isDialogOpen}
-          description="Do you want to delete this blog?"
+          description="Do you want to delete this recipe?"
           handleClose={handleCloseDialog}
           handleConfirm={deleteRecipe}
         />

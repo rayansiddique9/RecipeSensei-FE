@@ -3,9 +3,24 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
+  color: aqua !important;
 }
 
-.recipe-modal-title {
+.blog-modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow-y: auto;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.blog-modal-title {
   font-weight: bold !important;
   text-align: center !important;
   flex-grow: 1 !important;
@@ -30,20 +45,19 @@
   padding: 8px !important;
   margin-left: auto !important;
   margin-right: auto !important;
-  margin-top: 1rem !important;
 }
 
 .img-container {
   margin-top: 1rem;
   display: flex;
-  justify-content: flex-start !important;
+  justify-content: center;
   padding: 0.5rem;
-  width: fit-content;
+  max-width: 100%;
   overflow: hidden;
 }
 
 .img {
-  width: 200px;
+  max-width: 100%;
   height: auto;
   object-fit: cover;
   border-radius: 10px;

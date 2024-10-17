@@ -8,7 +8,6 @@ export { default as ContentSection } from "./contentSection/ContentSection";
 export { default as BlogCard } from "./blogCard/BlogCard";
 export { default as BlogDetail } from "./blogDetail/BlogDetail";
 export { default as RecipeDetail } from "./recipeDetail/RecipeDetail";
-export { default as RecipeAddEdit } from "./recipeAddEdit/RecipeAddEdit";
 export { default as ConfirmationDialog } from "./confirmationDialog/ConfirmationDialog";
-export { default as BlogAddEdit } from "./blogAddEdit/BlogAddEdit";
+export { default as ProfileSection } from "./profileSection/ProfileSection";
 

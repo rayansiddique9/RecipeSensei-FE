@@ -3,14 +3,28 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.5rem;
-  color: aqua !important;
 }
 
-.blog-modal-title {
+.recipe-modal-title {
   font-weight: bold !important;
   text-align: center !important;
   flex-grow: 1 !important;
   color: #142d4c !important;
+}
+
+.recipe-modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow-y: auto;
+  max-width: 600px;
+  padding: 2rem;
+  overflow-y: auto;
 }
 
 .close-btn {
@@ -31,19 +45,20 @@
   padding: 8px !important;
   margin-left: auto !important;
   margin-right: auto !important;
+  margin-top: 1rem !important;
 }
 
 .img-container {
   margin-top: 1rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start !important;
   padding: 0.5rem;
-  max-width: 100%;
+  width: fit-content;
   overflow: hidden;
 }
 
 .img {
-  max-width: 100%;
+  width: 200px;
   height: auto;
   object-fit: cover;
   border-radius: 10px;

@@ -1,14 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, {useState} from "react";
+import { Link, useParams } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
-import { userSignupSchema } from "utils";
+import { userSignupSchema, nutritionistSingupSchema } from "utils";
 import { authActions } from "reduxStore";
 import { routes } from "common";
 import "./signup.css";
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const { type } = useParams();
+  const [isNutritionist, setIsNutritionist] = useState(false);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     const userDetails = {
@@ -18,22 +20,41 @@ const Signup = () => {
         password: values.password,
       },
     };
-    await dispatch(authActions.signupUser(userDetails));
+
+    if(isNutritionist) {
+      userDetails.years_of_experience = values.yrsOfExperience,
+      userDetails.qualification = values.qualification,
+      await dispatch(authActions.signupNutritionist(userDetails));
+    } else {
+      await dispatch(authActions.signupUser(userDetails));
+    }
     setSubmitting(false);
   };
 
+  const initialValues = isNutritionist
+    ? {
+        username: "",
+        email: "",
+        yrsOfExperience: 1,
+        qualification: "",
+        password: "",
+        confirmPassword: "",
+      }
+    : {
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      };
+
   return (
     <div className="user-signup-container">
-      <h2 className="user-signup-title">User Signup</h2>
+      <h2 className="user-signup-title">{isNutritionist ? "NUTRITIONIST SIGNUP" : "User Signup"}</h2>
       <Formik
-        initialValues={{
-          username: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-        }}
-        validationSchema={userSignupSchema}
+        initialValues={initialValues}
+        validationSchema={isNutritionist ? nutritionistSingupSchema : userSignupSchema}
         onSubmit={handleSubmit}
+        enableReinitialize
       >
         {({ isSubmitting }) => (
           <Form className="signup-form-user">
@@ -49,6 +70,21 @@ const Signup = () => {
               <ErrorMessage name="email" component="div" className="error" />
             </div>
 
+            {isNutritionist && (
+              <div className="professional-details">
+              <div className="form-group">
+                <label htmlFor="yrsOfExperience">Years Of Experience</label>
+                <Field type="number" name="yrsOfExperience" />
+                <ErrorMessage name="yrsOfExperience" component="div" className="error" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="qualification">Qualification/Degree</label>
+                <Field type="text" name="qualification" />
+                <ErrorMessage name="qualification" component="div" className="error" />
+              </div>
+            </div>
+            )}
+
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <Field type="password" name="password" />
@@ -58,17 +94,13 @@ const Signup = () => {
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirm Password</label>
               <Field type="password" name="confirmPassword" />
-              <ErrorMessage
-                name="confirmPassword"
-                component="div"
-                className="error"
-              />
+              <ErrorMessage name="confirmPassword" component="div" className="error" />
             </div>
 
             <div className="form-links">
-              <Link to={routes.NUTRITIONIST_SIGNUP} className="link-button">
-                Signup as Nutritionist
-              </Link>
+              <button type="button" onClick={() => setIsNutritionist(!isNutritionist)} className="link-button">
+                Signup as {isNutritionist ? "User" : "Nutritionist"}
+              </button>
               <div>
                 <span>Already registered?</span>
                 <Link to={routes.LOGIN} className="link-button">

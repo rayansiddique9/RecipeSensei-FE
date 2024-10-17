@@ -4,4 +4,5 @@ export { default as nutritionistSingupSchema } from "./schemas/nutritionistSignu
 export { default as recipeSchema } from "./schemas/recipeSchema";
 export { default as blogSchema } from "./schemas/blogSchema";
 export { showToast } from "./toast";
+export { useCustomInfiniteQuery } from "./queryHelpers";
 

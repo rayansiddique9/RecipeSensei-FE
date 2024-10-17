@@ -6,13 +6,13 @@ import "./recipeGenerator.css";
 
 const RecipeGenerator = () => {
   const [ingredients, setIngredients] = useState("");
-  const [response, setResponse] = useState("");
+  const [recipe, setRecipe] = useState("");
 
   const handleGenerateRecipe = async () => {
     try {
       const params = { ingredients: ingredients };
       const response = await recipeApi.getAiRecipe(params);
-      setResponse(response.recipe);
+      setRecipe(response.recipe);
     } catch (error) {}
   };
 
@@ -25,7 +25,7 @@ const RecipeGenerator = () => {
         <TextField
           className="recipe-response"
           label="Generated Recipe"
-          value={response}
+          value={recipe}
           multiline
           fullWidth
           rows={10}

@@ -10,7 +10,8 @@
       "api": ["./src/api/*"],
       "pages": ["./src/pages/*"],
       "reduxStore": ["./src/reduxStore/*"],
-      "config": ["./src/config"]
+      "config": ["./src/config"],
+      "modals": ["./src/modals"]
     }
   }
 }

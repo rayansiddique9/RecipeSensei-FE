@@ -8,7 +8,7 @@ import "./blogsGrid.css";
 const BlogsGrid = ({ queryKey, queryFn }) => {
   const [page, setPage] = useState(1);
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: [queryKey, page],
     queryFn: () => queryFn({ pageParam: page }),
   });
@@ -28,7 +28,7 @@ const BlogsGrid = ({ queryKey, queryFn }) => {
         <Box>
           <List className="admin-blog-list">
             {blogs.map((blog) => (
-              <BlogCard blogDetails={blog} />
+              <BlogCard blogDetails={blog} refetch={refetch} />
             ))}
           </List>
           <Box display="flex" justifyContent="center" mt={2}>

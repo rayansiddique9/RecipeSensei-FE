@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Card, Typography, Box, Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { BlogAddEdit, ConfirmationDialog } from "components";
+import { ConfirmationDialog } from "components";
 import { blogApi } from "api";
 import { routes } from "common";
+import { BlogModal } from "modals";
 import "./blogListCard.css";
 
-const BlogListCard = ({ blog }) => {
+const BlogListCard = ({ blog, refetchBlogs }) => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -30,9 +31,8 @@ const BlogListCard = ({ blog }) => {
     if (event) event.stopPropagation();
     try {
       await blogApi.deleteBlog(blog.id);
-      setTimeout(() => {
-        window.location.reload();
-      }, 800);
+      setIsDialogOpen(false);
+      refetchBlogs();
     } catch (error) {}
   };
 
@@ -48,7 +48,7 @@ const BlogListCard = ({ blog }) => {
 
   const handleViewBlog = () => {
     const blogDetails = blog;
-    navigate(`${routes.BLOG_DETAIL}/${blog.id}`, { state: { blogDetails } });
+    navigate(routes.BLOG_DETAIL.replace(":id", blogDetails.id), { state: { blogDetails } });
   };
 
   return (
@@ -71,11 +71,12 @@ const BlogListCard = ({ blog }) => {
         </Box>
       </Box>
       {selectedBlog && (
-        <BlogAddEdit
+        <BlogModal
           open={isModalOpen}
           handleClose={handleCloseModal}
           blog={selectedBlog}
           stopPropagation={(e) => e.stopPropagation()}
+          refetchBlogs={refetchBlogs}
         />
       )}
 

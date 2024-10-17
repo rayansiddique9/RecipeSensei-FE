@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Box, Typography, Paper, Container, Button } from "@mui/material";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { selectSavedRecipes, profileActions, authActions, selectCurrentProfile } from "reduxStore";
 import { recipeApi } from "api";
-import { Loader, ConfirmationDialog } from "components";
+import { Loader, ConfirmationDialog, ProfileSection } from "components";
+import { useCustomInfiniteQuery } from "utils";
 import RecipeListCard from "./recipeListCard/recipeListCard";
 import ProfileEditModal from "./profileEditModal/ProfileEditModal";
 import "./userProfile.css";
@@ -29,13 +30,10 @@ const Profile = () => {
     hasNextPage,
     isFetchingNextPage,
     isLoading: recipesLoading,
-  } = useInfiniteQuery({
+    refetch: refetchPostedRecipes,
+  } = useCustomInfiniteQuery({
     queryKey: ["postedRecipes"],
     queryFn: ({ pageParam = 1 }) => recipeApi.getPostedRecipes(pageParam),
-    getNextPageParam: (lastPage) => {
-      const nextPageUrl = lastPage?.next ? new URL(lastPage.next) : null;
-      return nextPageUrl ? nextPageUrl.searchParams.get("page") : null;
-    },
   });
 
   const postedRecipes = data?.pages.flatMap((page) => page.results) ?? [];
@@ -56,30 +54,13 @@ const Profile = () => {
     <Loader />
   ) : (
     <Container className="user-prof-page">
-      <Paper className="personal-info-user">
-        <AccountBoxIcon className="account-box-icon"/>
-        <Typography variant="h4" className="personal-info-heading-user">
-          Personal Information
-        </Typography>
-        <Typography variant="body1">
-          <strong>Username:</strong> {currentUser.username}
-        </Typography>
-        <Typography variant="body1">
-          <strong>Email:</strong> {currentUser.email}
-        </Typography>
-
-        <Typography variant="body1">
-          <strong>Recipes Posted:</strong> {postedRecipes.length}
-        </Typography>
-        <Box className="personal-info-btns-user">
-          <Button variant="outlined" className="profile-action-btn" onClick={handleProfileEditClick}>
-            Edit
-          </Button>
-          <Button variant="outlined" className="profile-action-btn" color="error" onClick={() => setIsDialogOpen(true)}>
-            Delete Account
-          </Button>
-        </Box>
-      </Paper>
+      <ProfileSection
+        isNutritionist={false}
+        currentUser={currentUser}
+        postedRecipes={postedRecipes}
+        handleProfileEditClick={handleProfileEditClick}
+        handleProfileDeleteClick={() => setIsDialogOpen(true)}
+      />
 
       <Box className="listingGrid">
         <Box className="recipe-box">
@@ -98,7 +79,12 @@ const Profile = () => {
           >
             {postedRecipes.length > 0 ? (
               postedRecipes.map((recipe, index) => (
-                <RecipeListCard key={index} recipe={recipe} username={currentUser.username} />
+                <RecipeListCard
+                  key={index}
+                  recipe={recipe}
+                  username={currentUser.username}
+                  refetch={refetchPostedRecipes}
+                />
               ))
             ) : (
               <div className="empty-message">No Recipes Posted Yet</div>

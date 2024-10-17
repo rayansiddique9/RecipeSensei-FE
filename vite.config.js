@@ -15,6 +15,7 @@ export default defineConfig({
       assets: "/src/assets",
       reduxStore: "/src/reduxStore",
       config: "/src/config",
+      modals: "/src/modals"
     },
   },
 })

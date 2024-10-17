@@ -1,7 +1,6 @@
 export const routes = {
   LANDING: "/",
   USER_SIGNUP: "/signup",
-  NUTRITIONIST_SIGNUP: "/nutritionist/signup",
   LOGIN: "/login",
   VERIFY:"verify/:token1/:token2",
   HOME_USER: "/recipes",
@@ -13,7 +12,7 @@ export const routes = {
   RECIPES_ADMIN: "/admin/recipes",
   BLOGS_ADMIN: "/admin/blogs",
   USER_LIST_ADMIN: "/users",
-  BLOG_DETAIL: "/blogs",
-  RECIPE_DETAIL: "/recipes",
+  BLOG_DETAIL: "/blogs/:id",
+  RECIPE_DETAIL: "/recipes/:id",
 };
 

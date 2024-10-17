@@ -27,7 +27,6 @@ const profileSlice = createSlice({
             yearsOfExperience: action.payload.years_of_experience
           };
           state.isNutritionist = true;
-          state.savedRecipes = null;
         }
       )
       .addCase(profileActions.getUserProfile.fulfilled, (state, action) => {

@@ -4,9 +4,9 @@ import { Formik, Form, Field } from "formik";
 import { blogApi } from "api";
 import { blogSchema } from "utils";
 import CloseIcon from "@mui/icons-material/Close";
-import "./blogAddEdit.css";
+import "./blog.css";
 
-const BlogAddEdit = ({ open, handleClose, blog, stopPropagation }) => {
+const Blog = ({ open, handleClose, blog, stopPropagation, refetchBlogs }) => {
   const handleSubmit = async (values) => {
     const formData = new FormData();
     formData.append("title", values.title);
@@ -19,9 +19,7 @@ const BlogAddEdit = ({ open, handleClose, blog, stopPropagation }) => {
         await blogApi.createBlog(formData);
       }
       handleClose();
-      setTimeout(() => {
-        window.location.reload();
-      }, 800);
+      refetchBlogs();
     } catch (error) {}
   };
 
@@ -34,21 +32,11 @@ const BlogAddEdit = ({ open, handleClose, blog, stopPropagation }) => {
     <Modal open={open} onClose={handleClose}>
       <Box
         onClick={stopPropagation}
+        className="blog-modal-box"
         sx={{
           width: { xs: "80%", sm: "80%", md: "60%" },
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          maxWidth: "600px",
           bgcolor: "background.paper",
-          borderRadius: 2,
-          p: 4,
           boxShadow: 24,
-          display: "flex",
-          flexDirection: "column",
-          maxHeight: "90vh",
-          overflowY: "auto",
         }}
       >
         <Box className="modal-header">
@@ -102,5 +90,5 @@ const BlogAddEdit = ({ open, handleClose, blog, stopPropagation }) => {
   );
 };
 
-export default BlogAddEdit;
+export default Blog;
 

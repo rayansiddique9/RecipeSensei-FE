@@ -5,7 +5,13 @@ import { showErrorToast, showSuccessToast } from "./helpers";
 const request = async (method, url, data = {}, withToken = true, throwError = false) => {
   const instance = withToken ? axiosInstance : axios;
   try {
-    const response = await instance({ method, url, data });
+    const config = { method, url };
+    if (method.toLowerCase() === "get") {
+      config.params = data;
+    } else {
+      config.data = data;
+    }
+    const response = await instance(config);
     showSuccessToast(response);
     if (response.data) {
       return response.data;

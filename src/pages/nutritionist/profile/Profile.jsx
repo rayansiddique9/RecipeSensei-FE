@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography, Paper, Container, Button } from "@mui/material";
 import { profileActions, authActions, selectCurrentProfile } from "reduxStore";
 import { blogApi } from "api";
-import { Loader, ConfirmationDialog, BlogAddEdit } from "components";
-import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import { Loader, ConfirmationDialog, ProfileSection } from "components";
+import { BlogModal } from "modals";
+import { useCustomInfiniteQuery } from "utils";
 import BlogListCard from "./blogListCard/blogListCard";
 import ProfileEditModal from "./profileEditModal/ProfileEditModal";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -28,13 +29,10 @@ const Profile = () => {
     fetchNextPage: fetchNextApprovedPage,
     hasNextPage: hasNextApprovedPage,
     isLoading: approvedBlogsLoading,
-  } = useInfiniteQuery({
+    refetch: refetchApprovedBlogs,
+  } = useCustomInfiniteQuery({
     queryKey: ["approvedBlogs"],
     queryFn: ({ pageParam = 1 }) => blogApi.getNutritionistApprovedBlogs({ pageParam }),
-    getNextPageParam: (lastPage) => {
-      const nextPageUrl = lastPage?.next ? new URL(lastPage.next) : null;
-      return nextPageUrl ? nextPageUrl.searchParams.get("page") : null;
-    },
   });
   const approvedBlogs = approvedBlogsData?.pages.flatMap((page) => page.results) ?? [];
 
@@ -43,13 +41,10 @@ const Profile = () => {
     fetchNextPage: fetchNextPendingPage,
     hasNextPage: hasNextPendingPage,
     isLoading: pendingBlogsLoading,
-  } = useInfiniteQuery({
+    refetch: refetchPendingBlogs,
+  } = useCustomInfiniteQuery({
     queryKey: ["pendingBlogs"],
     queryFn: ({ pageParam = 1 }) => blogApi.getPendingBlogs({ pageParam }),
-    getNextPageParam: (lastPage) => {
-      const nextPageUrl = lastPage?.next ? new URL(lastPage.next) : null;
-      return nextPageUrl ? nextPageUrl.searchParams.get("page") : null;
-    },
   });
   const pendingBlogs = pendingBlogsData?.pages.flatMap((page) => page.results) ?? [];
 
@@ -58,13 +53,10 @@ const Profile = () => {
     fetchNextPage: fetchNextRejectedPage,
     hasNextPage: hasNextRejectedPage,
     isLoading: rejectedBlogsLoading,
-  } = useInfiniteQuery({
+    refetch: refetchRejectedBlogs,
+  } = useCustomInfiniteQuery({
     queryKey: ["rejectedBlogs"],
     queryFn: ({ pageParam = 1 }) => blogApi.getRejectedBlogs({ pageParam }),
-    getNextPageParam: (lastPage) => {
-      const nextPageUrl = lastPage?.next ? new URL(lastPage.next) : null;
-      return nextPageUrl ? nextPageUrl.searchParams.get("page") : null;
-    },
   });
   const rejectedBlogs = rejectedBlogsData?.pages.flatMap((page) => page.results) ?? [];
   const allBlogs = [...approvedBlogs, ...pendingBlogs, ...rejectedBlogs];
@@ -73,6 +65,12 @@ const Profile = () => {
     if (hasNextApprovedPage) await fetchNextApprovedPage();
     if (hasNextPendingPage) await fetchNextPendingPage();
     if (hasNextRejectedPage) await fetchNextRejectedPage();
+  };
+
+  const refetchBlogs = () => {
+    refetchApprovedBlogs();
+    refetchPendingBlogs();
+    refetchRejectedBlogs();
   };
 
   const handleProfileEditClick = () => {
@@ -91,47 +89,12 @@ const Profile = () => {
     <Loader />
   ) : (
     <Container className="nutritionist-profile-container">
-      <Paper className="personal-info">
-        <AccountBoxIcon className="account-box-icon"/>
-        <Typography variant="h4" className="personal-info-heading">
-          Personal Information
-        </Typography>
-
-        <div className="personal-info-row">
-          <div className="personal-info-label-value">
-            <Typography variant="body1" className="personal-info-label">
-              <strong>Username:</strong> {currentUser.username}
-            </Typography>
-          </div>
-          <div className="personal-info-label-value">
-            <Typography variant="body1" className="personal-info-label">
-              <strong>Qualification:</strong> {currentUser.qualification}
-            </Typography>
-          </div>
-        </div>
-
-        <div className="personal-info-row">
-          <div className="personal-info-label-value">
-            <Typography variant="body1" className="personal-info-label">
-              <strong>Email:</strong> {currentUser.email}
-            </Typography>
-          </div>
-          <div className="personal-info-label-value">
-            <Typography variant="body1" className="personal-info-label">
-              <strong>Years Of Experience:</strong> {currentUser.yearsOfExperience}
-            </Typography>
-          </div>
-        </div>
-
-        <Box className="personal-info-btns">
-          <Button variant="outlined" className="profile-action-btn" onClick={handleProfileEditClick}>
-            Edit
-          </Button>
-          <Button variant="outlined" className="profile-action-btn" color="error" onClick={() => setIsDialogOpen(true)}>
-            Delete Account
-          </Button>
-        </Box>
-      </Paper>
+      <ProfileSection
+        isNutritionist={true}
+        currentUser={currentUser}
+        handleProfileEditClick={handleProfileEditClick}
+        handleProfileDeleteClick={() => setIsDialogOpen(true)}
+      />
 
       <div className="add-blog-btn-container">
         <Typography className="blog-heading">
@@ -155,7 +118,7 @@ const Profile = () => {
         <Box className="profile-blogs-container">
           {allBlogs.length > 0 ? (
             allBlogs.map((blog, index) => (
-              <BlogListCard key={index} blog={blog} username={currentUser.username} status={blog.status} />
+              <BlogListCard key={index} blog={blog} username={currentUser.username} status={blog.status} refetchBlogs={refetchBlogs} />
             ))
           ) : (
             <div className="empty-message">No Blogs Available</div>
@@ -174,7 +137,7 @@ const Profile = () => {
         />
       )}
 
-      {isAddModalOpen && <BlogAddEdit open={isAddModalOpen} handleClose={() => setIsAddModalOpen(false)} blog={null} />}
+      {isAddModalOpen && <BlogModal open={isAddModalOpen} handleClose={() => setIsAddModalOpen(false)} blog={null} refetchBlogs={refetchBlogs} />}
     </Container>
   );
 };

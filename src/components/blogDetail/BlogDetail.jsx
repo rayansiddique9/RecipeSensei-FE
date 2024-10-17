@@ -17,7 +17,7 @@ const BlogDetail = () => {
   const handleApproval = async (event) => {
     event.stopPropagation();
     try {
-      await blogApi.updateStatus({ status: "A" }, blogDetails.id);
+      await blogApi.updateStatus({ status: "APPROVED" }, blogDetails.id);
       handleNavigate();
     } catch (error) {}
   };
@@ -25,7 +25,7 @@ const BlogDetail = () => {
   const handleRejection = async (event) => {
     event.stopPropagation();
     try {
-      await blogApi.updateStatus({ status: "R" }, blogDetails.id);
+      await blogApi.updateStatus({ status: "REJECTED" }, blogDetails.id);
       handleNavigate();
     } catch (error) {}
   };

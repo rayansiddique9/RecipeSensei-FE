@@ -12,7 +12,7 @@ import { local, routes } from "common";
 import { ConfirmationDialog } from "components";
 import "./recipeCard.css";
 
-const RecipeCard = ({ recipeDetails, onCardClick, updateSaveStatus }) => {
+const RecipeCard = ({ recipeDetails, onCardClick, updateSaveStatus, refetch }) => {
   const navigate = useNavigate();
   const savedRecipes = useSelector(selectSavedRecipes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -43,9 +43,8 @@ const RecipeCard = ({ recipeDetails, onCardClick, updateSaveStatus }) => {
     event.stopPropagation();
     try {
       await recipeApi.deleteRecipe(recipeDetails.id);
-      setTimeout(() => {
-        window.location.reload();
-      }, 800);
+      setIsDialogOpen(false);
+      refetch();
     } catch (error) {}
   };
 
@@ -60,7 +59,7 @@ const RecipeCard = ({ recipeDetails, onCardClick, updateSaveStatus }) => {
   };
 
   const handleViewRecipe = () => {
-    navigate(`${routes.RECIPE_DETAIL}/${recipeDetails.id}`, { state: { recipeDetails } });
+    navigate(routes.RECIPE_DETAIL.replace(":id", recipeDetails.id), { state: { recipeDetails } });
   };
 
   return (

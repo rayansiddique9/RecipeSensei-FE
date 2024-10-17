@@ -16,7 +16,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { ConfirmationDialog } from "components";
 import { GLOBALS } from "common";
 import { authApi } from "api";
-import DetailModal from "../detailModal/DetailModal";
+import { UserModal } from "modals";
 import "./userList.css";
 
 const UserList = ({ queryKey, queryFn }) => {
@@ -26,7 +26,7 @@ const UserList = ({ queryKey, queryFn }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: [queryKey, page],
     queryFn: () => queryFn({ pageParam: page }),
   });
@@ -46,9 +46,8 @@ const UserList = ({ queryKey, queryFn }) => {
     if (!userToDelete) return;
     try {
       await authApi.deleteUser(userToDelete);
-      setTimeout(() => {
-        window.location.reload();
-      }, 800);
+      setIsDialogOpen(false);
+      refetch();
     } catch (error) {}
   };
 
@@ -99,7 +98,7 @@ const UserList = ({ queryKey, queryFn }) => {
             <Pagination count={totalPages} page={page} onChange={handlePageChange} color="primary" />
           </Box>
 
-          {selectedUser && <DetailModal open={isModalOpen} onClose={handleCloseModal} userDetails={selectedUser} />}
+          {selectedUser && <UserModal open={isModalOpen} onClose={handleCloseModal} userDetails={selectedUser} />}
 
           {isDialogOpen && (
             <ConfirmationDialog

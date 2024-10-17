@@ -19,13 +19,13 @@ export const profileApi = {
   },
 
   getUserList: async ({ pageParam=1, searchQuery="" }) => {
-    const params = new URLSearchParams({ page: pageParam, search: searchQuery });
-    return await apiUtils.get(`${endpoints.USER_LIST}/?${params}`, {}, true, true);
+    const params = { page: pageParam, search: searchQuery };
+    return await apiUtils.get(endpoints.USER_LIST, params, true, true);
   },
 
   getNutritionistList: async ({ pageParam=1, searchQuery="" }) => {
-    const params = new URLSearchParams({ page: pageParam, search: searchQuery });
-    return await apiUtils.get(`${endpoints.NUTRITIONIST_LIST}/?${params}`, {}, true, true);
+    const params = { page: pageParam, search: searchQuery };
+    return await apiUtils.get(endpoints.NUTRITIONIST_LIST, params, true, true);
   },
 };
 
